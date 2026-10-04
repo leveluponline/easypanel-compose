@@ -7,3 +7,5 @@ Unica mudanca em relacao ao original: o banco usa a imagem `supabase/postgres:17
 Este repositorio nao guarda senhas nem chaves. Elas ficam so nas variaveis de ambiente do Easypanel.
 
 Segunda mudanca (03/10/2026): o banco grava em pastas novas, `volumes/db/data17` e o volume `db-config17`, em vez de `volumes/db/data` e `db-config`. Motivo: uma primeira instalacao com PostgreSQL 15 deixou dados nas pastas antigas, e o PostgreSQL 17 nao consegue iniciar em cima delas. Para o banco novo nascer do zero com as senhas novas, ele usa pastas limpas. As pastas antigas ficam sem uso e podem ser apagadas no servidor.
+
+Terceira mudanca (04/10/2026): os dados do PostgreSQL ficam no volume do Docker `db-data`, em vez de uma pasta dentro do codigo (`volumes/db/data17`). Motivo: a pasta do codigo e mexida a cada Deploy do Easypanel; o volume do Docker fica fora dela, em /var/lib/docker/volumes, e nenhum Deploy toca nele. A pasta `volumes/db/data17` deixa de ser usada.
