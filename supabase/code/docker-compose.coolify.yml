@@ -222,7 +222,7 @@ services:
         [
           "CMD-SHELL",
           "curl -sSfL --head -o /dev/null -H \"Authorization: Bearer
-            ${ANON_KEY}\" http://localhost:4000/api/tenants/realtime-dev/health"
+            ${ANON_KEY}\" http://localhost:4000/api/tenants/realtime/health"
         ]
       timeout: 5s
       interval: 30s
@@ -252,6 +252,10 @@ services:
       RLIMIT_NOFILE: "10000"
       APP_NAME: realtime
       SEED_SELF_HOST: "true"
+      # 28/10/2026: o kong chama o Realtime por "realtime:4000" (commit 1d2974e), e o Realtime tira o inquilino do
+      # nome do host. Sem esta variavel o seed cria "realtime-dev" a cada reinicio, e todo websocket recebe
+      # TenantNotFound: foi o que parou o tempo real da Clinica de 26/10 (reinicio da Hostinger) a 28/10.
+      SELF_HOST_TENANT_NAME: realtime
       RUN_JANITOR: "true"
       DISABLE_HEALTHCHECK_LOGGING: "true"
 
